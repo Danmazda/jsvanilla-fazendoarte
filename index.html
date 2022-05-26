@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/style.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="./assets/style.css" />
     <title>Aromatizadores Helena</title>
   </head>
   <body>
@@ -15,24 +16,71 @@
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#produtos">Produtos</a></li>
         <li><a href="#produtos">Contatos</a></li>
+        <li>
+          <button class="adminBtn btn" onclick="abrirAdmin()">admin</button>
+        </li>
       </ul>
     </header>
     <main>
+      <section id="admin" class="hidden">
+        <h2>Admin area</h2>
+        <button class="btn" onclick="abrirModal()">Cadastrar Produto</button>
+        <section id="modal" class="hidden">
+          <div class="modal__container">
+            <div class="modal__container__header">
+              <h3 class="modal__container__header__h3">Cadastre um novo Produto</h3>
+              <span onclick="fecharModal()">X</span>
+            </div>
+            <fieldset>
+              <label for="fragrance">Aroma</label>
+              <input type="text" name="fragrance" />
+            </fieldset>
+            <fieldset>
+              <label for="description">Descrição</label>
+              <input type="text" name="description" />
+            </fieldset>
+            <fieldset>
+              <label for="image">Image</label>
+              <input type="url" name="image" />
+            </fieldset>
+            <fieldset>
+              <label for="price">Preço</label>
+              <input
+                type="number"
+                min="1"
+                max="1000"
+                name="price"
+                step="0.01"
+              />
+            </fieldset>
+            <button class="btn cadastroOuAtualizar">Enviar</button>
+          </div>
+        </section>
+        <div class="admin__produtos"></div>
+      </section>
       <section id="produtos">
-        <div class="produtos__container">
-        </div>
+        <div class="produtos__container"></div>
       </section>
       <section id="sobre">
         <div class="sobre__container">
           <h2>Sobre nós</h2>
-        <div class="sobre__container___card">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum dolores voluptate quod quibusdam placeat nesciunt quasi delectus magnam neque. Ex commodi nemo deserunt dolor laborum ipsum! Itaque odit rem velit!</p>
+          <div class="sobre__container___card card">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatum dolores voluptate quod quibusdam placeat nesciunt quasi
+              delectus magnam neque. Ex commodi nemo deserunt dolor laborum
+              ipsum! Itaque odit rem velit!
+            </p>
+          </div>
         </div>
-        </div>
-        
       </section>
     </main>
-    <footer> <ul><li>Danilo Procópio</li><li>Helena Barcelos</li></ul></footer>
+    <footer>
+      <ul>
+        <li>Danilo Procópio</li>
+        <li>Helena Barcelos</li>
+      </ul>
+    </footer>
   </body>
   <script src="./assets/script.js"></script>
 </html>

@@ -9,11 +9,13 @@
 body {
   background-color: #99b926;
   font-family: "Merriweather", serif;
+  overflow-x: hidden;
 }
 
 header {
-  top:0;
-  left:0;
+  /* position: fixed;
+  top: 0;
+  left: 0; */
   height: 10vh;
   background-color: rgb(36, 34, 34);
   color: aliceblue;
@@ -21,16 +23,17 @@ header {
   align-items: center;
   padding: 0.5rem;
   justify-content: space-between;
-  position: fixed;
-  width: 100vw;
+  width: 100%;
 }
 ul {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
-
 li {
   list-style: none;
+}
+li > a {
   border: 1px solid gray;
   padding: 0.5rem;
   height: 100%;
@@ -38,42 +41,115 @@ li {
   transition: 0.5s ease-in-out all;
 }
 
-li:hover {
-  transform: scale(1.1);
+li > a:hover {
+  background-color: gold;
+  color: black;
 }
 
 a {
   text-decoration: none;
-  color: gold
+  color: gold;
 }
 
-section{
-  width: 100vw;
+section {
+  width: 100%;
   height: 100vh;
   margin-top: 10vh;
+  overflow-y: scroll;
 }
-#produtos{
+#produtos {
   padding: 2em;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.produtos__container{
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5em;
+.produtos__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5em;
   background-color: blueviolet;
   padding: 0.5em;
   border-radius: 0.5em;
   background-color: black;
 }
 
-.produtos__container__card{
+.card {
   background-color: rgb(43, 128, 57);
   border-radius: 0.5em;
   padding: 0.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.card > img {
+  height: auto;
+  width: 14rem;
+  border-radius: 1em;
+}
+.card > p {
+  text-transform: capitalize;
+}
+
+.btn {
+  padding: 0.5em;
+  background-color: transparent;
+  color: white;
+  border: 2px solid gold;
+  border-radius: 1em;
+  text-transform: capitalize;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+#modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.233);
+}
+.modal__container {
+  background-color: #99b926;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1em;
+}
+.modal__container__header {
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua;
+  padding: 1em;
+  border-radius: 1em 1em 0 0;
+  gap: 1em;
+}
+.modal__container__header > span:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.modal__container > fieldset {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 1em;
+}
+
+.modal__container > fieldset > input {
+  width: 100%;
+  border-radius: 0.5em;
+  padding: 0.3em;
+  border: 1px solid gray;
+}
+span {
+  user-select: none;
+}
+.hidden {
+  display: none;
+  z-index: -1;
 }
