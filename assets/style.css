@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat&display=swap");
 
 * {
   padding: 0;
@@ -7,23 +7,24 @@
 }
 
 body {
-  background-color: #99b926;
-  font-family: "Merriweather", serif;
-  overflow-x: hidden;
+  background-color: #fdf0df;
+  font-family: "Montserrat", serif;
+  color: #000000;
+}
+
+.title {
+  font-family: "Dancing Script", cursive;
 }
 
 header {
-  /* position: fixed;
-  top: 0;
-  left: 0; */
+  padding: 3em;
   height: 10vh;
-  background-color: rgb(36, 34, 34);
-  color: aliceblue;
+  background-color: #fdf0df;
   display: flex;
   align-items: center;
-  padding: 0.5rem;
   justify-content: space-between;
   width: 100%;
+  border-bottom: 2px solid black;
 }
 ul {
   display: flex;
@@ -41,46 +42,71 @@ li > a {
   transition: 0.5s ease-in-out all;
 }
 
+.titleImage {
+  max-width: 10rem;
+  height: auto;
+}
+
 li > a:hover {
   background-color: gold;
   color: black;
 }
 
+h2{
+  margin-bottom: 1em;
+}
 a {
   text-decoration: none;
-  color: gold;
+  color: #f26372;
 }
 
 section {
   width: 100%;
-  height: 100vh;
-  margin-top: 10vh;
-  overflow-y: scroll;
 }
+
 #produtos {
-  padding: 2em;
+  padding: 3em;
+}
+
+#admin {
+  text-align: center;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  padding: 3em;
+  gap: 1em;
+}
+.admin__produtos{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+#sobre {
+  padding: 3em;
+}
+.sobreImg{
+  margin-top: -7em;
 }
 
 .produtos__container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.5em;
   background-color: blueviolet;
   padding: 0.5em;
   border-radius: 0.5em;
-  background-color: black;
+  background-color: #539997;
 }
 
 .card {
-  background-color: rgb(43, 128, 57);
+  background-color: #a5d2b2;
   border-radius: 0.5em;
   padding: 0.5em;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   align-items: center;
+  gap: 0.5em;
+  padding: .5em;
 }
 
 .card > img {
@@ -90,13 +116,15 @@ section {
 }
 .card > p {
   text-transform: capitalize;
+  text-align: center;
 }
 
+
 .btn {
+  color: #f26372;
   padding: 0.5em;
   background-color: transparent;
-  color: white;
-  border: 2px solid gold;
+  border: 2px solid #a2a8a5;
   border-radius: 1em;
   text-transform: capitalize;
 }
@@ -150,6 +178,9 @@ span {
   user-select: none;
 }
 .hidden {
-  display: none;
-  z-index: -1;
+  display: none !important;
+}
+footer{
+  display: flex;
+  justify-content: center;
 }

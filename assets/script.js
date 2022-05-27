@@ -42,14 +42,61 @@ async function imprimirProdutosAdmin() {
   <p>R$${aro.price.toFixed(2)}</p>
   <p><span>ID: </span> <span>${aro._id}</span></p>
   <div class="admin__produtos__card__control">
-  <button class="btn" onclick="abrirModal('${aro._id}')">Update</button>
+  <button class="btn" onclick="abrirModalId('${aro._id}')">Update</button>
   <button class="btn" onclick="deletarAromatizador('${
     aro._id
   }')">Delete</button>
   </div>
+  <section id="card_${aro._id}" class="hidden modal">
+          <div class="modal__container">
+            <div class="modal__container__header">
+              <h3 class="modal__container__header__h3">Atualize o produto</h3>
+              <span onclick="fecharModalId('${aro._id}')">X</span>
+            </div>
+            <fieldset>
+              <label for="fragrance">Aroma</label>
+              <input type="text" name="fragrance" class="fragrance_${aro._id}"
+              value= "${aro.fragrance}"/>
+            </fieldset>
+            <fieldset>
+              <label for="description">Descrição</label>
+              <input type="text" name="description" class="description_${
+                aro._id
+              }" value="${aro.description}"/>
+            </fieldset>
+            <fieldset>
+              <label for="image">Image</label>
+              <input type="url" name="image" class="image_${aro._id}" value="${
+        aro.image
+      }"/>
+            </fieldset>
+            <fieldset>
+              <label for="price">Preço</label>
+              <input
+                type="number"
+                min="1"
+                max="1000"
+                name="price"
+                step="0.01"
+                value="${aro.price}"
+                class="price_${aro._id}"
+              />
+            </fieldset>
+            <button class="btn" onclick="atualizar('${
+              aro._id
+            }')">Enviar</button>
+          </div>
+        </section>
 </div>`
     );
   });
+}
+
+function abrirModalId(id) {
+  document.querySelector(`#card_${id}`).classList.remove("hidden");
+}
+function fecharModalId(id) {
+  document.querySelector(`#card_${id}`).classList.add("hidden");
 }
 
 async function cadastroAromatizador(body) {
@@ -128,40 +175,57 @@ async function deletarAromatizador(id) {
     imprimirTodosOsProdutos();
   }
 }
-
-async function abrirModal(id = false) {
-  if (!id) {
-    document.querySelector(".modal__container__header__h3").innerText =
-      "Cadastre um novo produto";
-    document.querySelector("#modal").classList.remove("hidden");
-    document.querySelector("[name='fragrance']").value = "";
-    document.querySelector("[name='description']").value = "";
-    document.querySelector("[name='price']").value = 0;
-    document.querySelector("[name='image']").value = "";
-    document
-      .querySelector(".cadastroOuAtualizar")
-      .addEventListener("click", async () => {
-        await cadastrarAromatizadorResposta();
-      });
+async function atualizar(id) {
+  const body = {
+    fragrance: document.querySelector(`.fragrance_${id}`).value,
+    description: document.querySelector(`.description_${id}`).value,
+    price: Number(document.querySelector(`.price_${id}`).value),
+    image: document.querySelector(`.image_${id}`).value,
+  };
+  console.log(body);
+  await atualizarAromatizador(id, body);
+}
+async function atualizarAromatizador(id, body) {
+  const response = await fetch(`${baseUrl}/update/${id}`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify(body),
+  });
+  console.log("ENTREI");
+  if (response.status === 200) {
+    Swal.fire({
+      title: "Aromatizador atualizado com sucesso",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
   } else {
-    const aromatizador = await pegarAromatizadorPorId(id);
-    document.querySelector(".modal__container__header__h3").innerText =
-      "Atualize o produto:";
-    document.querySelector("#modal").classList.remove("hidden");
-    document.querySelector(
-      "[name='fragrance']"
-    ).value = `${aromatizador.fragrance}`;
-    document.querySelector(
-      "[name='description']"
-    ).value = `${aromatizador.description}`;
-    document.querySelector("[name='price']").value = aromatizador.price;
-    document.querySelector("[name='image']").value = `${aromatizador.image}`;
-    document
-      .querySelector(".cadastroOuAtualizar")
-      .addEventListener("click", async () => {
-        await cadastroOuAtualizarAromatizador(id);
-      });
+    const e = await response.json();
+    Swal.fire({
+      title: "Erro!",
+      text: `${e.error}`,
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
   }
+  imprimirProdutosAdmin();
+  imprimirTodosOsProdutos();
+}
+
+async function abrirModalAtualizar(id) {
+  console.log("halo");
+}
+
+async function abrirModalCadastro() {
+  document.querySelector(".modal__container__header__h3").innerText =
+    "Cadastre um novo produto";
+  document.querySelector("#modal").classList.remove("hidden");
+  document.querySelector("[name='fragrance']").value = "";
+  document.querySelector("[name='description']").value = "";
+  document.querySelector("[name='price']").value = 0;
+  document.querySelector("[name='image']").value = "";
 }
 function fecharModal() {
   document.querySelector("#modal").classList.add("hidden");
