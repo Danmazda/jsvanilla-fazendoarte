@@ -75,6 +75,9 @@ section {
   padding: 3em;
   gap: 1em;
 }
+#admin > fieldset{
+  border: none;
+}
 .admin__produtos{
   display: flex;
   flex-direction: column;
@@ -92,7 +95,7 @@ section {
   grid-template-columns: repeat(5, 1fr);
   gap: 0.5em;
   background-color: blueviolet;
-  padding: 0.5em;
+  padding: 1em;
   border-radius: 0.5em;
   background-color: #539997;
 }
@@ -143,7 +146,7 @@ section {
   background-color: rgba(0, 0, 0, 0.233);
 }
 .modal__container {
-  background-color: #99b926;
+  background-color:#539997;
   display: flex;
   flex-direction: column;
   border-radius: 1em;
@@ -151,7 +154,7 @@ section {
 .modal__container__header {
   display: flex;
   justify-content: space-between;
-  background-color: aqua;
+  background-color:#a2a8a5;
   padding: 1em;
   border-radius: 1em 1em 0 0;
   gap: 1em;
@@ -167,15 +170,16 @@ section {
   gap: 0.5em;
   margin: 1em;
 }
-
+.modal__container > button{
+  color:#fdf0df;
+  width: 50%;
+  margin: 0 auto 1em auto;
+}
 .modal__container > fieldset > input {
   width: 100%;
   border-radius: 0.5em;
   padding: 0.3em;
   border: 1px solid gray;
-}
-span {
-  user-select: none;
 }
 .hidden {
   display: none !important;

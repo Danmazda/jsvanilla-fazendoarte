@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/8a7e40051d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Aromatizadores Helena</title>
   </head>
@@ -66,6 +67,14 @@
           </div>
         </section>
         <div class="admin__produtos"></div>
+        <fieldset>
+          <label for="pesquisaId">Pesquisar por Id:</label>
+          <input type="text" name="pesquisaId" />
+          <button class="pesquisaIdBt btn" onclick="pesquisarPorId()">
+            Pesquisar
+          </button>
+        </fieldset>
+        <div class="admin__resultado--pesquisaID hidden"></div>
       </section>
       <section id="produtos">
         <h2>Produtos</h2>
@@ -75,7 +84,11 @@
         <div class="sobre__container">
           <h2>Sobre nós</h2>
           <div class="sobre__container___card card">
-            <img src="./assets/image/putro-02.png" alt="logo"  class="sobreImg"/>
+            <img
+              src="./assets/image/putro-02.png"
+              alt="logo"
+              class="sobreImg"
+            />
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatum dolores voluptate quod quibusdam placeat nesciunt quasi
@@ -90,6 +103,9 @@
       <ul>
         <li>Danilo Procópio</li>
         <li>Helena Barcelos</li>
+        <li><a href="https://www.linkedin.com/in/dtfsprocopio/" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>
+        <li><a href="https://github.com/Danmazda" target="_blank"><i class="fa-brands fa-github"></i></a></li>
+
       </ul>
     </footer>
   </body>

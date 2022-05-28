@@ -1,5 +1,6 @@
-const baseUrl = "http://localhost:3000/aromatizador";
+// const baseUrl = "http://localhost:3000/aromatizador";
 
+const baseUrl = "https://apifazendoarte-production.up.railway.app/aromatizador";
 async function pegarTodosOsAromatizadores() {
   const response = await fetch(`${baseUrl}/all`);
   const aromatizadores = await response.json();
@@ -212,6 +213,37 @@ async function atualizarAromatizador(id, body) {
   }
   imprimirProdutosAdmin();
   imprimirTodosOsProdutos();
+}
+
+async function pesquisarPorId() {
+  const pesquisa = document.querySelector("[name='pesquisaId']").value;
+  const resultado = await pegarAromatizadorPorId(pesquisa);
+  const mostraResultado = document.querySelector(
+    ".admin__resultado--pesquisaID"
+  );
+  mostraResultado.innerHTML = "";
+  if (resultado.error) {
+    mostraResultado.innerHTML = "Id inválida!";
+  } else {
+    mostraResultado.insertAdjacentHTML(
+      "beforeend",
+      `<div class="admin__produtos__card card" id="${resultado._id}">
+    <h3>${resultado.fragrance}</h3>
+    <img src="${resultado.image}" alt=" ${resultado.fragrance}">
+    <p>${resultado.description}</p>
+    <p>R$${resultado.price.toFixed(2)}</p>
+    <p><span>ID: </span> <span>${resultado._id}</span></p>
+    <div class="admin__produtos__card__control">
+    <button class="btn" onclick="abrirModalId('${
+      resultado._id
+    }')">Update</button>
+    <button class="btn" onclick="deletarAromatizador('${
+      resultado._id
+    }')">Delete</button>
+    </div>`
+    );
+  }
+  mostraResultado.classList.remove("hidden");
 }
 
 async function abrirModalAtualizar(id) {
