@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://kit.fontawesome.com/8a7e40051d.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/8a7e40051d.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Aromatizadores Helena</title>
   </head>
@@ -24,6 +27,51 @@
           <button class="adminBtn btn" onclick="abrirAdmin()">admin</button>
         </li>
       </ul>
+      <div id="login">
+        <fieldset>
+          <label for="loginEmail">E-mail:</label>
+          <input
+            type="email"
+            placeholder="exemplo@gmail.com"
+            name="loginEmail"
+            required
+          />
+        </fieldset>
+        <fieldset>
+          <label for="loginPassword">Senha:</label>
+          <input type="password" name="loginPassword" required />
+        </fieldset>
+        <button class="btn loginBt" onclick="login()">Login</button>
+        <button class="btn logoutBt" onclick="logout()">Logout</button>
+      </div>
+      <div id="singup">
+        <fieldset>
+          <label for="signupName">Seu nome:</label>
+          <input type="text" name="signupName" required />
+        </fieldset>
+        <fieldset>
+          <label for="signupEmail">E-mail:</label>
+          <input
+            type="email"
+            placeholder="exemplo@gmail.com"
+            name="signupEmail"
+            required
+          />
+        </fieldset>
+        <fieldset>
+          <label for="signupPassword">Senha:</label>
+          <input type="password" name="signupPassword" required />
+        </fieldset>
+        <fieldset>
+          <label for="signupPasswordVerify">Confirme a senha:</label>
+          <input type="password" name="signupPasswordVerify" required />
+        </fieldset>
+        <button class="btn signupBt" onclick="signup()">SignUp</button>
+      </div>
+      <div id="greetings">
+        <p>Bem-vindo,</p>
+        <h3 class="greetings__message">Visitante</h3>
+      </div>
     </header>
     <main>
       <section id="admin" class="hidden">
@@ -103,9 +151,16 @@
       <ul>
         <li>Danilo Procópio</li>
         <li>Helena Barcelos</li>
-        <li><a href="https://www.linkedin.com/in/dtfsprocopio/" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>
-        <li><a href="https://github.com/Danmazda" target="_blank"><i class="fa-brands fa-github"></i></a></li>
-
+        <li>
+          <a href="https://www.linkedin.com/in/dtfsprocopio/" target="_blank"
+            ><i class="fa-brands fa-linkedin"></i
+          ></a>
+        </li>
+        <li>
+          <a href="https://github.com/Danmazda" target="_blank"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+        </li>
       </ul>
     </footer>
   </body>

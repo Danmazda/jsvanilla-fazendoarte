@@ -18,13 +18,15 @@ body {
 
 header {
   padding: 3em;
-  height: 10vh;
   background-color: #fdf0df;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   border-bottom: 2px solid black;
+}
+h3 {
+  text-transform: capitalize;
 }
 ul {
   display: flex;
@@ -52,7 +54,7 @@ li > a:hover {
   color: black;
 }
 
-h2{
+h2 {
   margin-bottom: 1em;
 }
 a {
@@ -75,10 +77,10 @@ section {
   padding: 3em;
   gap: 1em;
 }
-#admin > fieldset{
+#admin > fieldset {
   border: none;
 }
-.admin__produtos{
+.admin__produtos {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
@@ -86,7 +88,7 @@ section {
 #sobre {
   padding: 3em;
 }
-.sobreImg{
+.sobreImg {
   margin-top: -7em;
 }
 
@@ -109,7 +111,7 @@ section {
   flex-direction: column;
   align-items: center;
   gap: 0.5em;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .card > img {
@@ -121,7 +123,6 @@ section {
   text-transform: capitalize;
   text-align: center;
 }
-
 
 .btn {
   color: #f26372;
@@ -140,13 +141,14 @@ section {
   position: absolute;
   top: 0;
   left: 0;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.233);
 }
 .modal__container {
-  background-color:#539997;
+  background-color: #539997;
   display: flex;
   flex-direction: column;
   border-radius: 1em;
@@ -154,7 +156,7 @@ section {
 .modal__container__header {
   display: flex;
   justify-content: space-between;
-  background-color:#a2a8a5;
+  background-color: #a2a8a5;
   padding: 1em;
   border-radius: 1em 1em 0 0;
   gap: 1em;
@@ -170,8 +172,8 @@ section {
   gap: 0.5em;
   margin: 1em;
 }
-.modal__container > button{
-  color:#fdf0df;
+.modal__container > button {
+  color: #fdf0df;
   width: 50%;
   margin: 0 auto 1em auto;
 }
@@ -184,7 +186,7 @@ section {
 .hidden {
   display: none !important;
 }
-footer{
+footer {
   display: flex;
   justify-content: center;
 }

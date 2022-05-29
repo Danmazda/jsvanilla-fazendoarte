@@ -1,13 +1,13 @@
-// const baseUrl = "http://localhost:3000/aromatizador";
+const baseUrl = "http://localhost:3000/";
 
-const baseUrl = "https://apifazendoarte-production.up.railway.app/aromatizador";
+// const baseUrl = "https://apifazendoarte-production.up.railway.app/aromatizador";
 async function pegarTodosOsAromatizadores() {
-  const response = await fetch(`${baseUrl}/all`);
+  const response = await fetch(`${baseUrl}aromatizador/all`);
   const aromatizadores = await response.json();
   return aromatizadores;
 }
 async function pegarAromatizadorPorId(id) {
-  const response = await fetch(`${baseUrl}/id/${id}`);
+  const response = await fetch(`${baseUrl}aromatizador/id/${id}`);
   const aromatizador = await response.json();
   return aromatizador;
 }
@@ -101,11 +101,12 @@ function fecharModalId(id) {
 }
 
 async function cadastroAromatizador(body) {
-  const url = `${baseUrl}/create`;
+  const url = `${baseUrl}aromatizador/create`;
   const response = await fetch(url, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
+      authorization: `bearer ${localStorage.access_token}`,
     },
     mode: "cors",
     body: JSON.stringify(body),
@@ -154,8 +155,11 @@ async function deletarAromatizador(id) {
     confirmButtonText: "Sim, delete!",
   });
   if (modal.isConfirmed) {
-    const response = await fetch(`${baseUrl}/delete/${id}`, {
+    const response = await fetch(`${baseUrl}aromatizador/delete/${id}`, {
       method: "delete",
+      headers: {
+        authorization: `bearer ${localStorage.access_token}`,
+      },
       mode: "cors",
     });
     if (response.status === 200) {
@@ -183,14 +187,14 @@ async function atualizar(id) {
     price: Number(document.querySelector(`.price_${id}`).value),
     image: document.querySelector(`.image_${id}`).value,
   };
-  console.log(body);
   await atualizarAromatizador(id, body);
 }
 async function atualizarAromatizador(id, body) {
-  const response = await fetch(`${baseUrl}/update/${id}`, {
+  const response = await fetch(`${baseUrl}aromatizador/update/${id}`, {
     method: "put",
     headers: {
       "Content-Type": "application/json",
+      authorization: `bearer ${localStorage.access_token}`,
     },
     mode: "cors",
     body: JSON.stringify(body),
@@ -266,4 +270,118 @@ function abrirAdmin() {
   document.querySelector("#admin").classList.toggle("hidden");
   imprimirProdutosAdmin();
 }
+
+async function login() {
+  const email = document.querySelector("[name='loginEmail']").value;
+  const password = document.querySelector("[name='loginPassword']").value;
+  const body = {
+    email,
+    password,
+  };
+  const request = await fetch(`${baseUrl}usuario/signin`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify(body),
+  });
+  if (request.status === 200) {
+    Swal.fire({
+      title: "Logado",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+    const response = await request.json();
+    localStorage.setItem("access_token", response.token);
+    localStorage.setItem("name", response.name);
+    localStorage.setItem("adm", response.adm);
+    document.querySelector(
+      ".greetings__message"
+    ).innerText = `${response.name}`;
+    if (response.adm) {
+      abrirAdmin();
+      document.querySelector(
+        ".greetings__message"
+      ).innerText = `${response.name} ADMIN`;
+    }
+  } else {
+    Swal.fire({
+      title: "Erro ao logar!",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+    localStorage.setItem("access_token", "");
+  }
+}
+
+async function signup() {
+  const name = document.querySelector("[name='signupName']").value;
+  const email = document.querySelector("[name='signupEmail']").value;
+  const password = document.querySelector("[name='signupPassword']").value;
+  const passwordVerify = document.querySelector(
+    "[name='signupPasswordVerify']"
+  ).value;
+  if (password !== passwordVerify) {
+    Swal.fire({
+      title: "As senhas não são iguais!",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+    return;
+  }
+  const body = {
+    name,
+    email,
+    password,
+  };
+  const request = await fetch(`${baseUrl}usuario/create`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify(body),
+  });
+  if (request.status === 201) {
+    Swal.fire({
+      title: `${name} cadastrado com sucesso!`,
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+  } else {
+    const response = await request.json();
+    Swal.fire({
+      title: "Erro!",
+      text: `${response.message}`,
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
+}
+
+async function logout() {
+  const modal = await Swal.fire({
+    title: "Certeza que quer deslogar?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim",
+    cancelButtonText: "Não!",
+  });
+  if (modal.isConfirmed) {
+    Swal.fire("Usuário deslogado.");
+    localStorage.clear();
+  }
+}
+
+function checkLogin() {
+  if (localStorage.length != 0) {
+    document.querySelector(
+      ".greetings__message"
+    ).innerText = `${localStorage.name}`;
+  }
+}
+checkLogin();
 imprimirTodosOsProdutos();
