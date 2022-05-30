@@ -24,6 +24,10 @@ async function imprimirTodosOsProdutos() {
     <img src="${aro.image}" alt=" ${aro.fragrance}">
     <p>${aro.description}</p>
     <p>R$${aro.price.toFixed(2)}</p>
+  <i class="fa-solid fa-cart-arrow-down" onclick="adicionarItemCarrinho('${
+    aro._id
+  }')"></i>
+
   </div>`
     );
   });
@@ -309,12 +313,18 @@ async function login() {
     <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
     );
     abrirLoginMenu();
-
+    imprimirMenuCarrinho();
     if (response.adm) {
       abrirAdmin();
       document.querySelector(
         ".greetings__message"
       ).innerText = `${response.name} ADMIN`;
+      document.querySelector(".navList").insertAdjacentHTML(
+        "beforeend",
+        `<li class="adminBt">
+      <button class="btn" onclick="abrirAdmin()">admin</button>
+    </li>`
+      );
     }
   } else {
     Swal.fire({
@@ -382,8 +392,14 @@ async function logout() {
     cancelButtonText: "Não!",
   });
   if (modal.isConfirmed) {
+    imprimirMenuCarrinho();
     Swal.fire("Usuário deslogado.");
+    const adminBt = document.querySelector(".adminBt");
+    if (adminBt) {
+      adminBt.remove();
+    }
     localStorage.clear();
+    document.querySelector("#admin").classList.toggle("hidden", true);
     document.querySelector(".greetings__message").innerText = `Visitante`;
     const loginArea = document.querySelector("#login");
     loginArea.innerHTML = "";
@@ -422,6 +438,15 @@ function checkLogin() {
     <button class="btn logoutBt" onclick="logout()">Logout</button>
     <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
     );
+    imprimirMenuCarrinho();
+    if (localStorage.adm) {
+      document.querySelector(".navList").insertAdjacentHTML(
+        "beforeend",
+        `<li class="adminBt">
+      <button class="btn" onclick="abrirAdmin()">admin</button>
+    </li>`
+      );
+    }
   }
 }
 
@@ -440,9 +465,12 @@ async function pegarCarrinhoUsuario() {
     body: JSON.stringify({ email: localStorage.email }),
   });
   const response = await request.json();
+  console.log(response);
   return response.cart;
 }
 async function imprimirMenuCarrinho() {
+  let total = 0;
+  let productQuantity = 0;
   const cartMenu = document.querySelector("#cartMenu");
   cartMenu.innerHTML = "";
   const cart = await pegarCarrinhoUsuario();
@@ -461,7 +489,18 @@ async function imprimirMenuCarrinho() {
 </div>
     `
     );
+    total += item.product.price * item.quantity;
+    productQuantity += item.quantity;
   });
+  cartMenu.insertAdjacentHTML(
+    "beforeend",
+    `<h3>Total : R$${total.toFixed(2)}</h3>`
+  );
+  document.querySelector(".cartQuantity").classList.remove("hidden");
+  document.querySelector(".cartQuantity").innerText = productQuantity;
+  setTimeout(() => {
+    document.querySelector(".cartQuantity").classList.add("hidden");
+  }, 2000);
 }
 
 function abrirLogin() {
@@ -476,5 +515,33 @@ function abrirSignup() {
   document.querySelector("#signup").classList.add("onTop");
   document.querySelector("#login").classList.remove("onTop");
 }
+
+async function adicionarItemCarrinho(id) {
+  const request = await fetch(`${baseUrl}usuario/additem`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `bearer ${localStorage.access_token}`,
+    },
+    mode: "cors",
+    body: JSON.stringify({ email: localStorage.email, product: id }),
+  });
+  const response = await request.json();
+  imprimirMenuCarrinho();
+}
+
+async function tirarItemCarrinho(id) {
+  const request = await fetch(`${baseUrl}usuario/deleteoneitem`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `bearer ${localStorage.access_token}`,
+    },
+    mode: "cors",
+    body: JSON.stringify({ email: localStorage.email, product: id }),
+  });
+  imprimirMenuCarrinho();
+}
+
 checkLogin();
 imprimirTodosOsProdutos();

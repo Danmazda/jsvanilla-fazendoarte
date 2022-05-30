@@ -68,7 +68,7 @@ fieldset {
   flex-direction: column;
   gap: 0.5em;
   width: 20%;
-  height: 16em;
+  height: 18em;
 }
 
 #signup input {
@@ -97,7 +97,7 @@ fieldset {
   flex-direction: column;
   gap: 0.5em;
   width: 20%;
-  height: 16em;
+  height: 18em;
 }
 #login input {
   padding: 0.3em;
@@ -117,7 +117,12 @@ fieldset {
   position: fixed;
   right: 2em;
   bottom: 2em;
-  z-index: 999;
+  z-index: 998;
+}
+
+.cart:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .cartItem {
@@ -126,11 +131,11 @@ fieldset {
   padding: 0.5em;
   border-radius: 0.5em;
   align-items: center;
-  justify-content: space-around;
   color: white;
+  justify-content: space-around;
 }
 .cartItem img {
-  width: 15%;
+  width: 10%;
   border-radius: 0.5em;
 }
 .cartItem .itemControl {
@@ -144,13 +149,27 @@ fieldset {
   border-radius: 0.5em;
   color: black;
 }
+.cartQuantity{
+  background-color: rgb(170, 11, 11);
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  color: white;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3em;
+  z-index: 999;
+}
 i:hover {
   transform: scale(1.2);
   cursor: pointer;
 }
 #cartMenu {
   position: fixed;
-  right: .5em;
+  right: 0.5em;
   top: 1em;
   height: 90vh;
   width: 80vw;
@@ -160,10 +179,11 @@ i:hover {
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
+  gap: .5em;
   border-radius: 1em;
 }
 li > a:hover {
-  background-color: gold;
+  background-color: #6c4b5e;
   color: black;
 }
 
@@ -239,11 +259,11 @@ section {
 
 .btn {
   color: #f26372;
-  padding: 0.5em;
-  background-color: transparent;
-  border: 2px solid #a2a8a5;
+  border: 1px solid gray;
+  padding: 0.6rem;
   border-radius: 1em;
-  text-transform: capitalize;
+  transition: 0.5s ease-in-out all;
+  background-color: transparent;
 }
 
 .btn:hover {
