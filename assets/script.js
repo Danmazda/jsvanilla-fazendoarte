@@ -309,7 +309,7 @@ async function login() {
     <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
     );
     abrirLoginMenu();
-    abrirFecharCarrinho();
+
     if (response.adm) {
       abrirAdmin();
       document.querySelector(
@@ -422,7 +422,6 @@ function checkLogin() {
     <button class="btn logoutBt" onclick="logout()">Logout</button>
     <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
     );
-    abrirFecharCarrinho();
   }
 }
 
@@ -430,8 +429,39 @@ function showCart() {
   document.querySelector("#cartMenu").classList.toggle("hidden");
 }
 
+async function pegarCarrinhoUsuario() {
+  const request = await fetch(`${baseUrl}usuario/email`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `bearer ${localStorage.access_token}`,
+    },
+    mode: "cors",
+    body: JSON.stringify({ email: localStorage.email }),
+  });
+  const response = await request.json();
+  return response.cart;
+}
 async function imprimirMenuCarrinho() {
   const cartMenu = document.querySelector("#cartMenu");
+  cartMenu.innerHTML = "";
+  const cart = await pegarCarrinhoUsuario();
+  cart.forEach((item) => {
+    cartMenu.insertAdjacentHTML(
+      "beforeend",
+      `
+    <div id="cartMenu__${item.product._id}" class="cartItem">
+  <img src="${item.product.image}" alt="">
+  <p>${item.product.fragrance}</p>
+  <div class="itemControl">
+    <i class="fa-solid fa-plus" onclick="adicionarItemCarrinho('${item.product._id}')"></i>
+    <p>${item.quantity}</p>
+    <i class="fa-solid fa-minus" onclick="tirarItemCarrinho('${item.product._id}')"></i>
+  </div>
+</div>
+    `
+    );
+  });
 }
 
 function abrirLogin() {
@@ -445,10 +475,6 @@ function abrirLoginMenu() {
 function abrirSignup() {
   document.querySelector("#signup").classList.add("onTop");
   document.querySelector("#login").classList.remove("onTop");
-}
-
-function abrirFecharCarrinho() {
-  document.querySelector(".cart").classList.toggle("hidden");
 }
 checkLogin();
 imprimirTodosOsProdutos();

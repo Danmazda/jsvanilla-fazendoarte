@@ -53,7 +53,7 @@ fieldset {
   height: auto;
 }
 
-#loginMenu button{
+#loginMenu button {
   color: white;
 }
 #signup {
@@ -113,15 +113,45 @@ fieldset {
   background-color: #7c9885;
   border-radius: 0 0 0.5em 0.5em;
 }
-.cart{
+.cart {
   position: fixed;
   right: 2em;
   bottom: 2em;
   z-index: 999;
 }
+
+.cartItem {
+  display: flex;
+  background-color: #6c4b5e;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.cartItem img {
+  width: 15%;
+  border-radius: 0.5em;
+}
+.cartItem .itemControl {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+.cartItem .itemControl p {
+  background-color: white;
+  padding: 0.8em;
+  border-radius: 0.5em;
+  color: black;
+}
+i:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
 #cartMenu {
-  position: absolute;
-  right: 0;
+  position: fixed;
+  right: .5em;
+  top: 1em;
   height: 90vh;
   width: 80vw;
   background-color: cadetblue;
@@ -177,7 +207,7 @@ section {
 
 .produtos__container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5em;
   background-color: blueviolet;
   padding: 1em;
