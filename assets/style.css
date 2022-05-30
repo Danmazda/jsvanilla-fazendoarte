@@ -17,6 +17,7 @@ body {
 }
 
 header {
+  position: relative;
   padding: 3em;
   background-color: #fdf0df;
   display: flex;
@@ -24,6 +25,7 @@ header {
   justify-content: space-between;
   width: 100%;
   border-bottom: 2px solid black;
+  height: 10vh;
 }
 h3 {
   text-transform: capitalize;
@@ -43,12 +45,93 @@ li > a {
   border-radius: 1em;
   transition: 0.5s ease-in-out all;
 }
-
+fieldset {
+  border: none;
+}
 .titleImage {
   max-width: 10rem;
   height: auto;
 }
 
+#loginMenu button{
+  color: white;
+}
+#signup {
+  position: absolute;
+  background-color: #77867f;
+  top: 6em;
+  right: 1em;
+  bottom: -12em;
+  border-radius: 0.5em 0.5em 0 0.5em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 20%;
+  height: 16em;
+}
+
+#signup input {
+  padding: 0.3em;
+  border-radius: 0.3em;
+  border: 1px solid gray;
+}
+
+#signup .signupBt {
+  border: none;
+  position: absolute;
+  right: 0;
+  bottom: -2.1em;
+  width: 50%;
+  background-color: #77867f;
+  border-radius: 0 0 0.5em 0.5em;
+}
+#login {
+  position: absolute;
+  background-color: #7c9885;
+  right: 1em;
+  top: 6em;
+  border-radius: 0.5em 0.5em 0.5em 0;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 20%;
+  height: 16em;
+}
+#login input {
+  padding: 0.3em;
+  border-radius: 0.3em;
+  border: 1px solid gray;
+}
+#login .loginBt {
+  border: none;
+  position: absolute;
+  left: 0;
+  bottom: -2.1em;
+  width: 50%;
+  background-color: #7c9885;
+  border-radius: 0 0 0.5em 0.5em;
+}
+.cart{
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  z-index: 999;
+}
+#cartMenu {
+  position: absolute;
+  right: 0;
+  height: 90vh;
+  width: 80vw;
+  background-color: cadetblue;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1em;
+}
 li > a:hover {
   background-color: gold;
   color: black;
@@ -185,6 +268,9 @@ section {
 }
 .hidden {
   display: none !important;
+}
+.onTop {
+  z-index: 9999 !important;
 }
 footer {
   display: flex;

@@ -296,9 +296,20 @@ async function login() {
     localStorage.setItem("access_token", response.token);
     localStorage.setItem("name", response.name);
     localStorage.setItem("adm", response.adm);
+    localStorage.setItem("email", response.email);
     document.querySelector(
       ".greetings__message"
     ).innerText = `${response.name}`;
+    const loginArea = document.querySelector("#login");
+    loginArea.innerHTML = "";
+    loginArea.insertAdjacentHTML(
+      "afterbegin",
+      `<h3>Logado como ${localStorage.name}.</h3>
+    <button class="btn logoutBt" onclick="logout()">Logout</button>
+    <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
+    );
+    abrirLoginMenu();
+    abrirFecharCarrinho();
     if (response.adm) {
       abrirAdmin();
       document.querySelector(
@@ -373,6 +384,27 @@ async function logout() {
   if (modal.isConfirmed) {
     Swal.fire("Usuário deslogado.");
     localStorage.clear();
+    document.querySelector(".greetings__message").innerText = `Visitante`;
+    const loginArea = document.querySelector("#login");
+    loginArea.innerHTML = "";
+    loginArea.insertAdjacentHTML(
+      "afterbegin",
+      `<fieldset>
+    <label for="loginEmail">E-mail:</label>
+    <input
+      type="email"
+      placeholder="exemplo@gmail.com"
+      name="loginEmail"
+      required
+    />
+  </fieldset>
+  <fieldset>
+    <label for="loginPassword">Senha:</label>
+    <input type="password" name="loginPassword" required />
+  </fieldset>
+  <button class="btn" onclick="login()">Login</button>
+  <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
+    );
   }
 }
 
@@ -381,7 +413,42 @@ function checkLogin() {
     document.querySelector(
       ".greetings__message"
     ).innerText = `${localStorage.name}`;
+
+    const loginArea = document.querySelector("#login");
+    loginArea.innerHTML = "";
+    loginArea.insertAdjacentHTML(
+      "afterbegin",
+      `<h3>Logado como ${localStorage.name}.</h3>
+    <button class="btn logoutBt" onclick="logout()">Logout</button>
+    <button class="btn loginBt" onclick="abrirLogin()">Login</button>`
+    );
+    abrirFecharCarrinho();
   }
+}
+
+function showCart() {
+  document.querySelector("#cartMenu").classList.toggle("hidden");
+}
+
+async function imprimirMenuCarrinho() {
+  const cartMenu = document.querySelector("#cartMenu");
+}
+
+function abrirLogin() {
+  document.querySelector("#signup").classList.remove("onTop");
+  document.querySelector("#login").classList.add("onTop");
+}
+
+function abrirLoginMenu() {
+  document.querySelector("#loginMenu").classList.toggle("hidden");
+}
+function abrirSignup() {
+  document.querySelector("#signup").classList.add("onTop");
+  document.querySelector("#login").classList.remove("onTop");
+}
+
+function abrirFecharCarrinho() {
+  document.querySelector(".cart").classList.toggle("hidden");
 }
 checkLogin();
 imprimirTodosOsProdutos();

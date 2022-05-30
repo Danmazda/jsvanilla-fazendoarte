@@ -24,56 +24,74 @@
         <li><a href="#produtos">Produtos</a></li>
         <li><a href="#produtos">Contatos</a></li>
         <li>
-          <button class="adminBtn btn" onclick="abrirAdmin()">admin</button>
+          <button class="btn" onclick="abrirLoginMenu()">
+            Cadastre-se ou faça login
+          </button>
         </li>
       </ul>
-      <div id="login">
-        <fieldset>
-          <label for="loginEmail">E-mail:</label>
-          <input
-            type="email"
-            placeholder="exemplo@gmail.com"
-            name="loginEmail"
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label for="loginPassword">Senha:</label>
-          <input type="password" name="loginPassword" required />
-        </fieldset>
-        <button class="btn loginBt" onclick="login()">Login</button>
-        <button class="btn logoutBt" onclick="logout()">Logout</button>
-      </div>
-      <div id="singup">
-        <fieldset>
-          <label for="signupName">Seu nome:</label>
-          <input type="text" name="signupName" required />
-        </fieldset>
-        <fieldset>
-          <label for="signupEmail">E-mail:</label>
-          <input
-            type="email"
-            placeholder="exemplo@gmail.com"
-            name="signupEmail"
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label for="signupPassword">Senha:</label>
-          <input type="password" name="signupPassword" required />
-        </fieldset>
-        <fieldset>
-          <label for="signupPasswordVerify">Confirme a senha:</label>
-          <input type="password" name="signupPasswordVerify" required />
-        </fieldset>
-        <button class="btn signupBt" onclick="signup()">SignUp</button>
-      </div>
+
       <div id="greetings">
         <p>Bem-vindo,</p>
         <h3 class="greetings__message">Visitante</h3>
       </div>
     </header>
     <main>
+      <div id="loginMenu" class="hidden">
+        <div id="login">
+          <fieldset>
+            <label for="loginEmail">E-mail:</label>
+            <input
+              type="email"
+              placeholder="exemplo@gmail.com"
+              name="loginEmail"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label for="loginPassword">Senha:</label>
+            <input type="password" name="loginPassword" required />
+          </fieldset>
+          <button class="btn" onclick="login()">Login</button>
+          <button class="btn loginBt" onclick="abrirLogin()">Login</button>
+        </div>
+        <div id="signup">
+          <fieldset>
+            <label for="signupName">Seu nome:</label>
+            <input type="text" name="signupName" required />
+          </fieldset>
+          <fieldset>
+            <label for="signupEmail">E-mail:</label>
+            <input
+              type="email"
+              placeholder="exemplo@gmail.com"
+              name="signupEmail"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label for="signupPassword">Senha:</label>
+            <input type="password" name="signupPassword" required />
+          </fieldset>
+          <fieldset>
+            <label for="signupPasswordVerify">Confirme a senha:</label>
+            <input type="password" name="signupPasswordVerify" required />
+          </fieldset>
+          <button class="btn" onclick="signup()">Enviar</button>
+          <button class="btn signupBt" onclick="abrirSignup()">
+            Cadastre-se
+          </button>
+        </div>
+      </div>
+
+      <img
+        onclick="showCart()"
+        class="cart hidden"
+        src="https://img.icons8.com/external-flaticons-flat-circular-flat-icons/64/000000/external-cart-web-flaticons-flat-circular-flat-icons.png"
+      />
+
+      <div id="cartMenu" class="hidden">
+        <h3>this is the cart menu</h3>
+      </div>
       <section id="admin" class="hidden">
         <h2>Admin area</h2>
         <button class="btn" onclick="abrirModalCadastro()">
