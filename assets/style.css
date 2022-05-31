@@ -124,7 +124,15 @@ fieldset {
   transform: scale(1.2);
   cursor: pointer;
 }
-
+.produtos__container__card__price{
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.produtos__container__card__price i{
+  color: rgb(153, 101, 4);
+  font-size: 2em;
+}
 .cartItem {
   display: flex;
   background-color: #6c4b5e;
@@ -181,6 +189,7 @@ i:hover {
   justify-content: space-between;
   gap: .5em;
   border-radius: 1em;
+  overflow-y: scroll;
 }
 li > a:hover {
   background-color: #6c4b5e;

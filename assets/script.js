@@ -23,11 +23,12 @@ async function imprimirTodosOsProdutos() {
     <h3>${aro.fragrance}</h3>
     <img src="${aro.image}" alt=" ${aro.fragrance}">
     <p>${aro.description}</p>
+    <div class="produtos__container__card__price">
     <p>R$${aro.price.toFixed(2)}</p>
   <i class="fa-solid fa-cart-arrow-down" onclick="adicionarItemCarrinho('${
     aro._id
   }')"></i>
-
+</div>
   </div>`
     );
   });
@@ -47,10 +48,10 @@ async function imprimirProdutosAdmin() {
   <p>R$${aro.price.toFixed(2)}</p>
   <p><span>ID: </span> <span>${aro._id}</span></p>
   <div class="admin__produtos__card__control">
-  <button class="btn" onclick="abrirModalId('${aro._id}')">Update</button>
+  <button class="btn" onclick="abrirModalId('${aro._id}')">Atualizar</button>
   <button class="btn" onclick="deletarAromatizador('${
     aro._id
-  }')">Delete</button>
+  }')">Deletar</button>
   </div>
   <section id="card_${aro._id}" class="hidden modal">
           <div class="modal__container">
@@ -203,7 +204,6 @@ async function atualizarAromatizador(id, body) {
     mode: "cors",
     body: JSON.stringify(body),
   });
-  console.log("ENTREI");
   if (response.status === 200) {
     Swal.fire({
       title: "Aromatizador atualizado com sucesso",
@@ -252,10 +252,6 @@ async function pesquisarPorId() {
     );
   }
   mostraResultado.classList.remove("hidden");
-}
-
-async function abrirModalAtualizar(id) {
-  console.log("halo");
 }
 
 async function abrirModalCadastro() {
@@ -318,7 +314,7 @@ async function login() {
       abrirAdmin();
       document.querySelector(
         ".greetings__message"
-      ).innerText = `${response.name} ADMIN`;
+      ).innerText = `${response.name}`;
       document.querySelector(".navList").insertAdjacentHTML(
         "beforeend",
         `<li class="adminBt">
@@ -392,7 +388,7 @@ async function logout() {
     cancelButtonText: "Não!",
   });
   if (modal.isConfirmed) {
-    imprimirMenuCarrinho();
+    limparCarrinhoMenu();
     Swal.fire("Usuário deslogado.");
     const adminBt = document.querySelector(".adminBt");
     if (adminBt) {
@@ -465,7 +461,6 @@ async function pegarCarrinhoUsuario() {
     body: JSON.stringify({ email: localStorage.email }),
   });
   const response = await request.json();
-  console.log(response);
   return response.cart;
 }
 async function imprimirMenuCarrinho() {
@@ -485,6 +480,7 @@ async function imprimirMenuCarrinho() {
     <i class="fa-solid fa-plus" onclick="adicionarItemCarrinho('${item.product._id}')"></i>
     <p>${item.quantity}</p>
     <i class="fa-solid fa-minus" onclick="tirarItemCarrinho('${item.product._id}')"></i>
+    <i class="fa-solid fa-trash-can" onclick="deletarItem('${item.product._id}')"></i>
   </div>
 </div>
     `
@@ -541,6 +537,26 @@ async function tirarItemCarrinho(id) {
     body: JSON.stringify({ email: localStorage.email, product: id }),
   });
   imprimirMenuCarrinho();
+}
+
+function limparCarrinhoMenu() {
+  document.querySelector("#cartMenu").innerHTML =
+    "<p>Faça login para Adicionar produtos</p>";
+}
+
+async function deletarItem(id) {
+  const request = await fetch(`${baseUrl}usuario/deleteitem`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `bearer ${localStorage.access_token}`,
+    },
+    mode: "cors",
+    body: JSON.stringify({ email: localStorage.email, product: id }),
+  });
+  const response = await request.json();
+  imprimirMenuCarrinho();
+  console.log(response);
 }
 
 checkLogin();
