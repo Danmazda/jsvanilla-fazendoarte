@@ -1,6 +1,6 @@
-const baseUrl = "http://localhost:3000/";
+// const baseUrl = "http://localhost:3000/";
 
-// const baseUrl = "https://apifazendoarte-production.up.railway.app/aromatizador";
+const baseUrl = "https://apifazendoarte-production.up.railway.app/";
 async function pegarTodosOsAromatizadores() {
   const response = await fetch(`${baseUrl}aromatizador/all`);
   const aromatizadores = await response.json();
