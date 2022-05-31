@@ -21,10 +21,10 @@
   <h2>Links</h2>
   <p>
     Projeto está online nesse
-    <a href="https://jsvanilla-fazendoarte.vercel.app/">link</a>
+    <a target="_blank" href="https://jsvanilla-fazendoarte.vercel.app/">link</a>
   </p>
   <p>
     Respositório do backend (express):
-    <a href="https://github.com/Danmazda/api_fazendo_arte">link</a>
+    <a target="_blank" href="https://github.com/Danmazda/api_fazendo_arte">link</a>
   </p>
 </body>
